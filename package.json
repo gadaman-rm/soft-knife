@@ -1,0 +1,26 @@
+{
+  "name": "soft-knife",
+  "version": "0.0.0",
+  "description": "A collection of precision tools for software development.",
+  "main": "./dist/cli.js",
+  "bin": {
+    "soft-knife": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc --outDir ./dist && npm link"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "commander": "^13.1.0",
+    "fs": "^0.0.1-security",
+    "node-fetch": "^3.3.2",
+    "os": "^0.1.2",
+    "readline": "^1.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5"
+  }
+}
