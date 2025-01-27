@@ -3,6 +3,7 @@ import path from "path";
 import os from "os";
 import FormData from "form-data";
 import axios from "axios";
+import { accessFile } from "../types";
 
 const uploadUrl = "http://localhost:7070/upload"; // URL of the upload server
 const fileName = "test.zip"; // The name of the file to upload
@@ -22,22 +23,23 @@ class Uploader {
       process.exit(1);
     }
 
-    // Get the path to the .token file in the user's home directory
+    // Get the path to the .access file in the user's home directory
     const homeDir = os.homedir();
-    const tokenFilePath = path.join(homeDir, "Documents", "GADA", ".token");
+    const accessPath = path.join(homeDir, "Documents", "GADA", ".access");
 
-    // Check if the .token file exists
-    if (!fs.existsSync(tokenFilePath)) {
-      console.error(`Token file not found: ${tokenFilePath}`);
-      console.log("Please create a .token file in your home directory with a valid token.");
+    // Check if the .access file exists
+    if (!fs.existsSync(accessPath)) {
+      console.error(`.access file not found: ${accessPath}`);
+      console.log("Please Login first.");
       process.exit(1);
     }
 
-    // Read the token from the .token file
-    const token = fs.readFileSync(tokenFilePath, "utf-8").trim();
+    // Read the token from the .access file
+    const accessFileString = fs.readFileSync(accessPath, "utf-8").trim();
+    const accessFile: accessFile = JSON.parse(accessFileString);
 
-    if (!token) {
-      console.error("Token is empty. Please ensure the .token file contains a valid token.");
+    if (!accessFile.token) {
+      console.error("Token is empty. Please ensure the .access file contains a valid token.");
       process.exit(1);
     }
 
@@ -52,7 +54,7 @@ class Uploader {
       const response = await axios.post(uploadUrl, form, {
         headers: {
           ...form.getHeaders(),
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessFile.token}`,
         },
       });
       console.log("Server response:", response.data);
