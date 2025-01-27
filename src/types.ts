@@ -70,3 +70,9 @@ export interface accessFile {
   tel: string;
   token: string;
 }
+
+export interface appConfig {
+  name: string;
+  label: string;
+  version?: string;
+}

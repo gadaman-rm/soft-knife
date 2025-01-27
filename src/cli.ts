@@ -2,6 +2,7 @@
 import { Command } from "commander";
 import uploader from "./tools/Uploader";
 import authenticator from "./tools/Login";
+import config from "./tools/Config";
 const program = new Command();
 
 program.name("soft-knife").description("A collection of precision tools for software development.").version("0.0.0");
@@ -26,6 +27,13 @@ program
   .description("Login to GADA server")
   .action(() => {
     authenticator.login();
+  });
+
+program
+  .command("config")
+  .description("make app config")
+  .action(() => {
+    config.make();
   });
 
 program.parse(process.argv);

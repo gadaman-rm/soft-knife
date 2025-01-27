@@ -3,23 +3,30 @@ import path from "path";
 import os from "os";
 import FormData from "form-data";
 import axios from "axios";
-import { accessFile } from "../types";
+import { accessFile, appConfig } from "../types";
+import kleur from "kleur";
 
 const uploadUrl = "http://localhost:7070/upload"; // URL of the upload server
-const fileName = "test.zip"; // The name of the file to upload
 
 class Uploader {
   async upload() {
-    // Get the current working directory
-    const rootDir = process.cwd();
+    // Read and parse `package.json`
+    const appConfigPath = path.resolve(process.cwd(), "app.json");
+    if (!fs.existsSync(appConfigPath)) {
+      console.error(kleur.red("Error: app.json not found."));
+      process.exit(1);
+    }
+
+    const appConfigStr = fs.readFileSync(appConfigPath, "utf-8").trim();
+    const appConfig: appConfig = JSON.parse(appConfigStr);
 
     // Resolve the full path to the file
-    const filePath = path.join(rootDir, fileName);
+    const filePath = path.join(process.cwd(), `${appConfig.name}.zip`);
 
     // Check if the file exists
     if (!fs.existsSync(filePath)) {
       console.error(`File not found: ${filePath}`);
-      console.log(`Please ensure the file "${fileName}" exists in the current directory: ${rootDir}`);
+      console.log(`Please ensure you build before publishing`);
       process.exit(1);
     }
 
