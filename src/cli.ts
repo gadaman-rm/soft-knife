@@ -3,6 +3,7 @@ import { Command } from "commander";
 import uploader from "./tools/Uploader";
 import authenticator from "./tools/Login";
 import config from "./tools/Config";
+import pack from "./tools/Pack";
 const program = new Command();
 
 program.name("soft-knife").description("A collection of precision tools for software development.").version("0.0.0");
@@ -34,6 +35,13 @@ program
   .description("make app config")
   .action(() => {
     config.make();
+  });
+
+program
+  .command("pack")
+  .description("pack app")
+  .action(() => {
+    pack.make();
   });
 
 program.parse(process.argv);
