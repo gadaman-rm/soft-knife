@@ -4,6 +4,7 @@ import uploader from "./tools/Uploader";
 import authenticator from "./tools/Login";
 import config from "./tools/Config";
 import pack from "./tools/Pack";
+import launcher from "./tools/Launcher";
 const program = new Command();
 
 program.name("soft-knife").description("A collection of precision tools for software development.").version("0.0.0");
@@ -42,6 +43,13 @@ program
   .description("pack app")
   .action(() => {
     pack.make();
+  });
+
+program
+  .command("develope")
+  .description("Develop app")
+  .action(() => {
+    launcher.develope();
   });
 
 program.parse(process.argv);
