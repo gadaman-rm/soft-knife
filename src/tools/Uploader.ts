@@ -22,7 +22,7 @@ class Uploader {
     const appConfig: appConfig = JSON.parse(appConfigStr);
 
     // Resolve the full path to the file
-    const filePath = path.join(process.cwd(), `${appConfig.name}.zip`);
+    const filePath = path.join(process.cwd(), `${appConfig.name}.app`);
 
     // Check if the file exists
     if (!fs.existsSync(filePath)) {

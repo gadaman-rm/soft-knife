@@ -48,7 +48,7 @@ class Pack {
     zip.addLocalFolder(appPath, "app");
     zip.addLocalFile(appJsonPath);
     zip.addLocalFile(iconPath);
-    const zipFileName = `${appConfig.name}.zip`;
+    const zipFileName = `${appConfig.name}.app`;
     zip.writeZip(zipFileName);
 
     console.log(kleur.green(`Success: Created ${zipFileName} in the current directory.`));
