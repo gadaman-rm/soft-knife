@@ -6,6 +6,7 @@ import FormData from "form-data";
 import axios from "axios";
 import { accessFile, appConfig } from "../types";
 import kleur from "kleur";
+import ProgressBar from "progress";
 
 const uploadUrl = "http://localhost:7070/upload"; // URL of the upload server
 
@@ -57,6 +58,18 @@ class Uploader {
       filename: path.basename(filePath),
     });
 
+    // Get the total file size
+    const fileStats = fs.statSync(filePath);
+    const fileSize = fileStats.size;
+
+    // Create a progress bar
+    const progressBar = new ProgressBar("Uploading [:bar] :percent :etas", {
+      complete: "=",
+      incomplete: " ",
+      width: 40,
+      total: fileSize, // Set the total size of the file
+    });
+
     // Send the file to the server
     try {
       const response = await axios.post(uploadUrl, form, {
@@ -64,10 +77,16 @@ class Uploader {
           ...form.getHeaders(),
           Authorization: `Bearer ${accessFile.token}`,
         },
+        onUploadProgress: (progressEvent) => {
+          if (progressEvent.total) {
+            // Update the progress bar with the number of bytes uploaded
+            progressBar.tick(progressEvent.loaded - (progressBar.curr || 0));
+          }
+        },
       });
-      console.log("Server response:", response.data);
+      console.log("\nUpload complete! Server response:", response.data);
     } catch (error: any) {
-      console.error("Error uploading file:", error.message);
+      console.error("\nError uploading file:", error.message);
     }
   }
 }

@@ -16,6 +16,13 @@
   dependencies:
     undici-types "~6.20.0"
 
+"@types/progress@^2.0.7":
+  version "2.0.7"
+  resolved "https://registry.npmjs.org/@types/progress/-/progress-2.0.7.tgz"
+  integrity sha512-iadjw02vte8qWx7U0YM++EybBha2CQLPGu9iJ97whVgJUT5Zq9MjAPYUnbfRI2Kpehimf1QjFJYxD0t8nqzu5w==
+  dependencies:
+    "@types/node" "*"
+
 "@types/prompts@^2.4.9":
   version "2.4.9"
   resolved "https://registry.npmjs.org/@types/prompts/-/prompts-2.4.9.tgz"
@@ -167,6 +174,11 @@ os@^0.1.2:
   version "0.1.2"
   resolved "https://registry.npmjs.org/os/-/os-0.1.2.tgz"
   integrity sha512-ZoXJkvAnljwvc56MbvhtKVWmSkzV712k42Is2mA0+0KTSRakq5XXuXpjZjgAt9ctzl51ojhQWakQQpmOvXWfjQ==
+
+progress@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.npmjs.org/progress/-/progress-2.0.3.tgz"
+  integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
 
 prompts@^2.4.2:
   version "2.4.2"
