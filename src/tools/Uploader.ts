@@ -76,6 +76,7 @@ class Uploader {
         headers: {
           ...form.getHeaders(),
           Authorization: `Bearer ${accessFile.token}`,
+          app_data: Buffer.from(JSON.stringify(appConfig)).toString("base64"), // Custom header for the theme
         },
         onUploadProgress: (progressEvent) => {
           if (progressEvent.total) {
