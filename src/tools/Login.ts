@@ -44,7 +44,7 @@ class Authenticator {
       const accessFile: accessFile = JSON.parse(accessFileString);
 
       const accessResponse = (
-        await axios.post("http://localhost:7070/api/developer/access", {
+        await axios.post("http://coolpanel.ir:7070/api/developer/access", {
           tel: accessFile.tel,
           token: accessFile.token,
         } as accessRequest)
@@ -55,7 +55,7 @@ class Authenticator {
         fs.writeFileSync(accessPath, JSON.stringify(accessFile), { encoding: "utf-8" });
         console.log("Token updated successfully.");
       } else {
-        console.log(accessResponse);
+        console.log(accessResponse.msg);
         this.login();
       }
     }
@@ -68,7 +68,7 @@ class Authenticator {
 
       // Send the phone number to the server
       const signinResponse = (
-        await axios.post("http://localhost:7070/api/developer/signin", {
+        await axios.post("http://coolpanel.ir:7070/api/developer/signin", {
           tel: tel,
         } as signinRequest)
       ).data as signinResponse;
@@ -76,7 +76,7 @@ class Authenticator {
       if (signinResponse.ok) {
         console.log("Verification code sent successfully.");
       } else {
-        console.log(signinResponse);
+        console.log(signinResponse.msg);
         process.exit(1);
       }
 
@@ -85,7 +85,7 @@ class Authenticator {
 
       // Send the verification code to the server
       const verifyResponse = (
-        await axios.post("http://localhost:7070/api/developer/verify", {
+        await axios.post("http://coolpanel.ir:7070/api/developer/verify", {
           tel: tel,
           code: verifyCode,
         } as verifyRequest)
