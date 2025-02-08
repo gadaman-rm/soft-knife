@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { Command } from "commander";
 import uploader from "./tools/Uploader";
-import authenticator from "./tools/Login";
+import authenticator from "./tools/Authenticator";
 import config from "./tools/Config";
 import pack from "./tools/Pack";
 import launcher from "./tools/Launcher";
