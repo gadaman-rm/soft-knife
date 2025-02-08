@@ -55,6 +55,7 @@ class Authenticator {
         fs.writeFileSync(accessPath, JSON.stringify(accessFile), { encoding: "utf-8" });
         console.log("Token updated successfully.");
       } else {
+        console.log(accessResponse.msg);
         this.login();
       }
     }
@@ -75,7 +76,7 @@ class Authenticator {
       if (signinResponse.ok) {
         console.log("Verification code sent successfully.");
       } else {
-        console.log(signinResponse);
+        console.log(signinResponse.msg);
         process.exit(1);
       }
 
