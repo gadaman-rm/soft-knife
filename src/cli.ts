@@ -52,4 +52,11 @@ program
     launcher.develope();
   });
 
+program
+  .command("ssh-upload")
+  .description("Upload using ssh")
+  .action(() => {
+    
+  });
+
 program.parse(process.argv);
