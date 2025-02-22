@@ -5,6 +5,7 @@ import authenticator from "./tools/Authenticator";
 import config from "./tools/Config";
 import pack from "./tools/Pack";
 import launcher from "./tools/Launcher";
+import ssh from "./tools/SSH";
 const program = new Command();
 
 program.name("soft-knife").description("A collection of precision tools for software development.").version("0.0.0");
@@ -53,10 +54,10 @@ program
   });
 
 program
-  .command("ssh-upload")
+  .command("ssh-uploadDir")
   .description("Upload using ssh")
   .action(() => {
-    
+    ssh.uploadDir();
   });
 
 program.parse(process.argv);
