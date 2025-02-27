@@ -5,15 +5,15 @@ import * as path from "path";
 const configPath = "./softknife.json"; // Adjust if necessary
 let sshConfig: any = {};
 
-try {
-  const configFile = fs.readFileSync(path.join(process.cwd(), configPath), "utf8");
-  sshConfig = JSON.parse(configFile);
-} catch (error) {
-  console.error("Error reading softknife.json:", error);
-}
-
 class SSH {
   uploadDir() {
+    try {
+      const configFile = fs.readFileSync(path.join(process.cwd(), configPath), "utf8");
+      sshConfig = JSON.parse(configFile);
+    } catch (error) {
+      console.error("Error reading softknife.json:", error);
+    }
+
     if (!sshConfig.host || !sshConfig.username) {
       console.error("Invalid SSH configuration");
       return;
