@@ -19,6 +19,7 @@
     "commander": "^13.1.0",
     "fs": "^0.0.1-security",
     "fs-extra": "^11.3.0",
+    "inquirer": "^12.5.0",
     "kleur": "^4.1.5",
     "node-fetch": "^3.3.2",
     "os": "^0.1.2",

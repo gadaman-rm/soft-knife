@@ -6,6 +6,7 @@ import config from "./tools/Config";
 import pack from "./tools/Pack";
 import launcher from "./tools/Launcher";
 import ssh from "./tools/SSH";
+import runScript from "./tools/RunScript";
 const program = new Command();
 
 program.name("soft-knife").description("A collection of precision tools for software development.").version("0.0.0");
@@ -58,6 +59,14 @@ program
   .description("Upload using ssh")
   .action(() => {
     ssh.uploadDir();
+  });
+
+program
+  .command("run-script")
+  .description("Run script")
+  .argument("<script>", "Name of the script to run") // Define the argument
+  .action(() => {
+    runScript.run();
   });
 
 program.parse(process.argv);
