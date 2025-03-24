@@ -9,6 +9,7 @@ export type access =
   | "blockForUpdate";
 
 export interface user {
+  _id: string;
   tel?: string;
   name?: string;
   company?: string;
@@ -32,7 +33,7 @@ export interface user {
 }
 
 export interface request {
-  tel: string;
+  tel?: string;
   token: string;
 }
 
@@ -47,6 +48,11 @@ export interface verifyRequest {
   code: string;
 }
 
+export interface makeAppIdRequest extends request {
+  name: string;
+}
+
+//Response
 export interface response {
   ok: boolean;
   msg?: string;
@@ -66,12 +72,18 @@ export interface verifyResponse extends response {
   user?: user;
 }
 
+export interface makeAppIdResponse extends response {
+  _id?: string;
+}
+
 export interface accessFile {
+  _id?: string;
   tel: string;
   token: string;
 }
 
 export interface appConfig {
+  _id?: string;
   name: string;
   label: string;
   version?: string;

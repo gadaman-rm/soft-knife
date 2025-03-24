@@ -3,6 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { appConfig } from "../types";
 import viteAPI from "./Vite";
+import * as os from "os";
 
 class Launcher {
   appConfig: appConfig | undefined;
@@ -14,11 +15,21 @@ class Launcher {
       process.exit(1);
     }
     const data = fs.readFileSync(appJsonPath, "utf8");
-    this.appConfig = JSON.parse(data);
+    this.appConfig = JSON.parse(data) as appConfig;
   }
 
   async develope(): Promise<void> {
     this.readAppJson();
+    const homeDir = os.homedir();
+    const developeAppConfigPath = path.join(homeDir, "Documents", "GADA", "develope", this.appConfig!.name,"app.json");
+
+    if (!this.appConfig!._id) {
+      console.log("Error: ", "App id should receive first");
+      process.exit(1);
+    }
+
+    fs.writeFileSync(developeAppConfigPath, JSON.stringify(this.appConfig), { encoding: "utf-8" });
+
     await viteAPI.startViteServer();
     try {
       const response = await axios.post("http://localhost:7141/runLocalApp", {

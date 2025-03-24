@@ -99,6 +99,7 @@ class Authenticator {
 
         const accessFile: accessFile = {
           tel: tel,
+          _id: verifyResponse.user?._id,
           token: verifyResponse.token,
         };
 

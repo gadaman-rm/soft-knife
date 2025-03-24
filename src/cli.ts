@@ -7,6 +7,7 @@ import pack from "./tools/Pack";
 import launcher from "./tools/Launcher";
 import ssh from "./tools/SSH";
 import runScript from "./tools/RunScript";
+import developer from "./tools/Developer";
 const program = new Command();
 
 program.name("soft-knife").description("A collection of precision tools for software development.").version("0.0.0");
@@ -67,6 +68,13 @@ program
   .argument("<script>", "Name of the script to run") // Define the argument
   .action(() => {
     runScript.run();
+  });
+
+program
+  .command("makeAppId")
+  .description("Make app id")
+  .action(() => {
+    developer.makeAppId();
   });
 
 program.parse(process.argv);
