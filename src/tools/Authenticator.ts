@@ -45,7 +45,6 @@ class Authenticator {
 
       const accessResponse = (
         await axios.post("http://coolpanel.ir:7070/api/developer/access", {
-          tel: accessFile.tel,
           token: accessFile.token,
         } as accessRequest)
       ).data as accessResponse;
@@ -98,8 +97,6 @@ class Authenticator {
         const accessPath = path.join(os.homedir(), "Documents", "GADA", ".access");
 
         const accessFile: accessFile = {
-          tel: tel,
-          _id: verifyResponse.user?._id,
           token: verifyResponse.token,
         };
 

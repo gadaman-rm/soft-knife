@@ -63,7 +63,6 @@ class Developer {
 
     const makeAppIdResponse = (
       await axios.post("http://coolpanel.ir:7070/api/developer/makeAppId", {
-        _id: accessFile._id,
         token: accessFile.token,
         name: appConfig.name,
       } as makeAppIdRequest)

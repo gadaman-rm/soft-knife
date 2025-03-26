@@ -33,7 +33,6 @@ export interface user {
 }
 
 export interface request {
-  tel?: string;
   token: string;
 }
 
@@ -77,8 +76,6 @@ export interface makeAppIdResponse extends response {
 }
 
 export interface accessFile {
-  _id?: string;
-  tel: string;
   token: string;
 }
 
