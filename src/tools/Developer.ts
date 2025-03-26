@@ -3,7 +3,14 @@ import axios from "axios";
 import * as fs from "fs";
 import * as os from "os";
 import path from "path";
-import { accessFile, makeAppIdRequest, makeAppIdResponse, appConfig } from "../types";
+import {
+  accessFile,
+  makeAppIdRequest,
+  makeAppIdResponse,
+  appConfig,
+  makeAppTokenRequest,
+  makeAppTokenResponse,
+} from "../types";
 import kleur from "kleur";
 
 class Developer {
@@ -45,7 +52,7 @@ class Developer {
       console.log(".access not exist.");
       return;
     }
-    
+
     if (!fs.existsSync(appJsonPath)) {
       console.error(kleur.red(`Error: app.json not found in ${process.cwd()}`));
       return false;
@@ -73,6 +80,49 @@ class Developer {
       fs.writeFileSync(appJsonPath, JSON.stringify(appConfig), { encoding: "utf-8" });
       console.log("id add successfully.");
     } else console.error(kleur.red(`Error: ${makeAppIdResponse.msg}`));
+  }
+
+  async makeAppToken() {
+    const homeDir = os.homedir();
+    const accessPath = path.join(homeDir, "Documents", "GADA", ".access");
+    const appJsonPath = path.join(process.cwd(), "app.json");
+
+    // Check if the .access file exists
+    if (!fs.existsSync(accessPath)) {
+      console.log(".access not exist.");
+      return;
+    }
+
+    if (!fs.existsSync(appJsonPath)) {
+      console.error(kleur.red(`Error: app.json not found in ${process.cwd()}`));
+      return false;
+    }
+
+    // Read the token from the .access file
+    const accessFile: accessFile = JSON.parse(fs.readFileSync(accessPath, "utf-8").trim());
+    if (!accessFile!.token) {
+      console.log("Error: ", "You should login first");
+      process.exit(1);
+    }
+
+    const appConfig: appConfig = JSON.parse(fs.readFileSync(appJsonPath, "utf-8").trim());
+
+    if (!appConfig!._id) {
+      console.log("Error: ", "App id should receive first");
+      process.exit(1);
+    }
+
+    const makeAppTokenResponse = (
+      await axios.post("http://coolpanel.ir:7070/api/developer/makeAppToken", {
+        token: accessFile.token,
+        appId: appConfig._id,
+      } as makeAppTokenRequest)
+    ).data as makeAppTokenResponse;
+
+    if (makeAppTokenResponse.ok) {
+      console.log("Received token:");
+      console.log(makeAppTokenResponse.token);
+    }
   }
 }
 

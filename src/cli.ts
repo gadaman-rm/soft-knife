@@ -77,4 +77,11 @@ program
     developer.makeAppId();
   });
 
+program
+  .command("makeAppToken")
+  .description("Make app token")
+  .action(() => {
+    developer.makeAppToken();
+  });
+
 program.parse(process.argv);

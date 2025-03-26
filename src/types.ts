@@ -51,6 +51,10 @@ export interface makeAppIdRequest extends request {
   name: string;
 }
 
+export interface makeAppTokenRequest extends request {
+  appId: string;
+}
+
 //Response
 export interface response {
   ok: boolean;
@@ -73,6 +77,10 @@ export interface verifyResponse extends response {
 
 export interface makeAppIdResponse extends response {
   _id?: string;
+}
+
+export interface makeAppTokenResponse extends response {
+  token: string;
 }
 
 export interface accessFile {
