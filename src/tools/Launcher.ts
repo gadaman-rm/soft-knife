@@ -28,6 +28,7 @@ class Launcher {
       process.exit(1);
     }
 
+    fs.mkdirSync(path.dirname(developeAppConfigPath), { recursive: true });
     fs.writeFileSync(developeAppConfigPath, JSON.stringify(this.appConfig), { encoding: "utf-8" });
 
     await viteAPI.startViteServer();
