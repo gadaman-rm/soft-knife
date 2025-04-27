@@ -8,6 +8,8 @@ import launcher from "./tools/Launcher";
 import ssh from "./tools/SSH";
 import runScript from "./tools/RunScript";
 import developer from "./tools/Developer";
+import runCommand from "./tools/RunCommand";
+import ftpUpload from "./tools/FtpUpload";
 const program = new Command();
 
 program.name("soft-knife").description("A collection of precision tools for software development.").version("0.0.0");
@@ -82,6 +84,41 @@ program
   .description("Make app token")
   .action(() => {
     developer.makeAppToken();
+  });
+
+program
+  .command("run-command")
+  .description("Run a shell command with path replacements")
+  .argument("<command...>", "Command to run") // Use ... to capture all arguments
+  .action((args) => {
+    // Join all arguments back into a single command string
+    const command = args.join(" ");
+    runCommand.run(command);
+  });
+
+program
+  .command("ftp-upload")
+  .description("Upload a file to FTP server")
+  .requiredOption("--host <host>", "FTP server host")
+  .requiredOption("--user <username>", "FTP username")
+  .requiredOption("--password <password>", "FTP password")
+  .requiredOption("--local-file <file>", "Local file to upload")
+  .requiredOption("--ftp-dir <directory>", "FTP server directory")
+  .option("--remote-name <name>", "Optional custom name for the uploaded file")
+  .action(async (options) => {
+    try {
+      await ftpUpload.upload({
+        host: options.host,
+        user: options.user,
+        password: options.password,
+        localFile: options.localFile,
+        ftpDir: options.ftpDir,
+        remoteName: options.remoteName
+      });
+    } catch (error) {
+      console.error("FTP upload failed");
+      process.exit(1);
+    }
   });
 
 program.parse(process.argv);
