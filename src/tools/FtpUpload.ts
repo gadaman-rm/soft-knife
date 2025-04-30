@@ -43,7 +43,7 @@ class FtpUpload {
       const remoteFileName = config.remoteName || path.basename(config.localFile);
       console.log(kleur.cyan(`Remote filename will be: ${remoteFileName}`));
 
-      await client.uploadFrom(config.localFile, path.join(trueFtpDir, remoteFileName));
+      await client.uploadFrom(config.localFile, remoteFileName);
 
       console.log(kleur.green("Upload completed successfully!"));
     } catch (err) {
